@@ -54,8 +54,14 @@
                     </div>
                     <div class="form-group">
                         <label for="musicGenre">Genre:</label>
-                        <input type="text" id="musicGenre" required>
+                        <select id="musicGenre" required>
+                            <option value="rnb">RNB</option>
+                            <option value="rock">ROCK</option>
+                            <option value="jazz">JAZZ</option>
+                        </select>
                     </div>
+
+
                     <div class="modal-buttons">
                         <button type="submit">Save</button>
                         <button type="button" onclick="closeModal('musicModal')">Cancel</button>
