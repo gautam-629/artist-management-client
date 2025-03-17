@@ -126,6 +126,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Edit functions
+async function editUser(id) {
+    const result = await authenticatedFetch(`http://localhost:5500/users/${id}`);
+
+    if (result && result.success) {
+        const user = result.data;
+        document.getElementById('modalFirstName').value = user.first_name;
+        document.getElementById('modalLastName').value = user.last_name;
+        document.getElementById('modalEmail').value = user.email;
+        document.getElementById('modalPhone').value = user.phone;
+        document.getElementById('modalDob').value = user.dob.split('T')[0];
+        document.getElementById('modalGender').value = user.gender;
+        document.getElementById('modalAddress').value = user.address;
+        document.getElementById('modalPassword').value = '';
+
+        editingUserId = id;
+        openModal('userModal', 'Edit User');
+    }
+}
+
+
 // Pagination
 function updatePagination(type, meta) {
     document.getElementById(`${type}CurrentPage`).textContent = `Page ${meta.page}`;
