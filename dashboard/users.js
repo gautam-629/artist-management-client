@@ -123,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal('userModal');
             alert(result.message)
             fetchUsers();
+            if (!editingUserId) {
+                window.location.href = '../index.html';
+            }
         }
     });
 });
