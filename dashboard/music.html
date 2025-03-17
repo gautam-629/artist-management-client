@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music</title>
+    <link rel="stylesheet" href="./dashboard.css">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <div id="sidebar"></div>
+
+        <main class="main-content">
+            <div id="musicSection" class="section">
+                <div class="section-header">
+                    <h2>Music</h2>
+                    <button id="addMusicBtn" class="add-btn">Add Music</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Album</th>
+                                <th>Genre</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="musicTableBody"></tbody>
+                    </table>
+                    <div class="pagination">
+                        <button id="musicPrevPage">Previous</button>
+                        <span id="musicCurrentPage">Page 1</span>
+                        <button id="musicNextPage">Next</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <!-- Music Modal -->
+        <div id="musicModal" class="modal">
+            <div class="modal-content">
+                <h2 id="musicModalTitle">Add Music</h2>
+                <form id="musicForm">
+                    <div class="form-group">
+                        <label for="musicTitle">Title:</label>
+                        <input type="text" id="musicTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="musicAlbum">Album Name:</label>
+                        <input type="text" id="musicAlbum" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="musicGenre">Genre:</label>
+                        <input type="text" id="musicGenre" required>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="closeModal('musicModal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script src="./sidebar.js"></script>
+    <script src="./music.js"></script>
+</body>
+
+</html>
