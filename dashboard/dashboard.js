@@ -105,6 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
             password: document.getElementById('modalPassword').value
         };
 
+        if (editingUserId) {
+            if (!confirm('Are you sure you want to Update this user?')) return;
+        }
+
         const url = editingUserId
             ? `${backendUrl}/users/${editingUserId}`
             : 'http://localhost:5500/users';
@@ -122,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (result && result.success) {
             closeModal('userModal');
+            alert(result.message)
             fetchUsers();
         }
     });
@@ -129,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Edit functions
 async function editUser(id) {
+
     const result = await authenticatedFetch(`${backendUrl}/users/${id}`);
 
     if (result && result.success) {
