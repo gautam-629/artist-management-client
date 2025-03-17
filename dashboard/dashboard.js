@@ -89,6 +89,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Form submissions
+    document.getElementById('userForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = {
+            first_name: document.getElementById('modalFirstName').value,
+            last_name: document.getElementById('modalLastName').value,
+            email: document.getElementById('modalEmail').value,
+            phone: document.getElementById('modalPhone').value,
+            dob: document.getElementById('modalDob').value,
+            gender: document.getElementById('modalGender').value,
+            address: document.getElementById('modalAddress').value,
+            password: document.getElementById('modalPassword').value
+        };
+
+        const url = editingUserId
+            ? `http://localhost:5500/users/${editingUserId}`
+            : 'http://localhost:5500/users';
+
+        const method = editingUserId ? 'PUT' : 'POST';
+
+        if (!formData.password) {
+            delete formData.password;
+        }
+
+        const result = await authenticatedFetch(url, {
+            method,
+            body: JSON.stringify(formData)
+        });
+
+        if (result && result.success) {
+            closeModal('userModal');
+            fetchUsers();
+        }
+    });
 });
 
 // Pagination
