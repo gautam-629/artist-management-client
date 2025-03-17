@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const url = editingUserId
             ? `${backendUrl}/users/${editingUserId}`
-            : 'http://localhost:5500/users';
+            : `${backendUrl}/users`;
 
         const method = editingUserId ? 'PUT' : 'POST';
 

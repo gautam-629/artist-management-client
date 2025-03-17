@@ -1,6 +1,7 @@
 let currentArtistPage = 1;
 const limit = 10;
 let editingArtistId = null;
+const backendUrl = `http://localhost:5500`
 
 // Check if user is authenticated and get role
 function checkAuth() {
@@ -14,10 +15,14 @@ function checkAuth() {
 
     document.getElementById('userRole').textContent = `Role: ${user.role}`;
 
-    // Show users menu item only for super_admin
-    const usersMenuItem = document.getElementById('usersMenuItem');
-    if (user.role === 'super_admin') {
-        usersMenuItem.style.display = 'block';
+    // Get the "Add Artist" button
+    const addArtistBtn = document.getElementById('addArtistBtn');
+
+    // Show button only if user.role is 'artist_manager'
+    if (user.role === 'artist_manager') {
+        addArtistBtn.style.display = 'block';
+    } else {
+        addArtistBtn.style.display = 'none';
     }
 
     return token;
@@ -67,11 +72,11 @@ async function authenticatedFetch(url, options = {}) {
 // Artists CRUD
 async function fetchArtists() {
     const result = await authenticatedFetch(
-        `http://localhost:5500/artists/?page=${currentArtistPage}&limit=${limit}`
+        `${backendUrl}/artists/?page=${currentArtistPage}&limit=${limit}`
     );
 
     if (result && result.success) {
-        displayArtists(result.data.artists);
+        displayArtists(result.data.artists.data);
         updatePagination('artists', result.data.meta);
     }
 }
@@ -143,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('artistForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        console.log("artise form")
+
         const formData = {
             first_name: document.getElementById('artistFirstName').value,
             last_name: document.getElementById('artistLastName').value,
@@ -158,10 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const url = editingArtistId
-            ? `http://localhost:5500/artists/${editingArtistId}`
-            : 'http://localhost:5500/artists';
+            ? `${backendUrl}/artists/${editingArtistId}`
+            : `${backendUrl}/artists`;
 
-        const method = editingArtistId ? 'PATCH' : 'POST';
+        console.log(url)
+
+        const method = editingArtistId ? 'PUT' : 'POST';
 
         if (!formData.password) {
             delete formData.password;
@@ -181,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function editArtist(id) {
-    const result = await authenticatedFetch(`http://localhost:5500/artists/${id}`);
+    const result = await authenticatedFetch(`${backendUrl}/artists/${id}`);
 
     if (result && result.success) {
         const artist = result.data;
