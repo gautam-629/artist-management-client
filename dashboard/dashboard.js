@@ -1,4 +1,5 @@
 let currentUserPage = 1;
+let editingUserId = null;
 const limit = 10;
 
 // Check if user is authenticated and get role
@@ -51,6 +52,17 @@ async function authenticatedFetch(url, options = {}) {
     }
 }
 
+// Modal Functions
+function openModal(modalId, title = 'Add') {
+    document.getElementById(modalId).style.display = 'block';
+    document.getElementById(`${modalId}Title`).textContent = title;
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+    document.getElementById(`${modalId.replace('Modal', '')}Form`).reset();
+    editingUserId = null;
+}
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,6 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
         currentUserPage++;
         fetchUsers();
     });
+
+
+    // Add buttons
+    document.getElementById('addUserBtn').addEventListener('click', () => {
+        openModal('userModal', 'Add User');
+    });
+
 
 });
 

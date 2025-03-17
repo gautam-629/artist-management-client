@@ -67,6 +67,53 @@
                 </div>
             </div>
         </main>
+        <!-- User Modal -->
+        <div id="userModal" class="modal">
+            <div class="modal-content">
+                <h2 id="userModalTitle">Add User</h2>
+                <form id="userForm">
+                    <div class="form-group">
+                        <label for="modalFirstName">First Name:</label>
+                        <input type="text" id="modalFirstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalLastName">Last Name:</label>
+                        <input type="text" id="modalLastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalEmail">Email:</label>
+                        <input type="email" id="modalEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalPhone">Phone:</label>
+                        <input type="tel" id="modalPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalDob">Date of Birth:</label>
+                        <input type="date" id="modalDob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalGender">Gender:</label>
+                        <select id="modalGender" required>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalAddress">Address:</label>
+                        <textarea id="modalAddress" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalPassword">Password:</label>
+                        <input type="password" id="modalPassword">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="closeModal('userModal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="./dashboard.js"></script>
 </body>
