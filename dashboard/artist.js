@@ -82,20 +82,24 @@ async function fetchArtists() {
 }
 
 function displayArtists(artists) {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     const tbody = document.getElementById('artistsTableBody');
     tbody.innerHTML = '';
 
     artists.forEach(artist => {
         const tr = document.createElement('tr');
+        const actionButtons = user.role === 'artist_manager' ? `
+        <td class="action-buttons">
+            <button class="edit-btn" onclick="editArtist('${artist.id}')">Edit</button>
+            <button class="delete-btn" onclick="deleteArtist('${artist.id}')">Delete</button>
+        </td>
+    ` : '';
         tr.innerHTML = `
             <td>${artist.first_name} ${artist.last_name}</td>
             <td>${artist.email}</td>
             <td>${artist.no_of_albums_released}</td>
             <td>${artist.first_release_year}</td>
-            <td class="action-buttons">
-                <button class="edit-btn" onclick="editArtist('${artist.id}')">Edit</button>
-                <button class="delete-btn" onclick="deleteArtist('${artist.id}')">Delete</button>
-            </td>
+            ${actionButtons}
         `;
         tbody.appendChild(tr);
     });
@@ -150,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log("artise form")
 
+
         const formData = {
             first_name: document.getElementById('artistFirstName').value,
             last_name: document.getElementById('artistLastName').value,
@@ -163,6 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
             no_of_albums_released: parseInt(document.getElementById('artistAlbumsReleased').value),
             role: 'artist'
         };
+
+        if (editingArtistId) {
+            if (!confirm('Are you sure you want to Update this Artist?')) return;
+        }
 
         const url = editingArtistId
             ? `${backendUrl}/artists/${editingArtistId}`
@@ -183,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (result && result.success) {
             closeModal('artistModal');
+            alert(result.message)
             fetchArtists();
         }
     });

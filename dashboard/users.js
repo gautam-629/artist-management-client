@@ -97,7 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
             dob: document.getElementById('modalDob').value,
             gender: document.getElementById('modalGender').value,
             address: document.getElementById('modalAddress').value,
-            password: document.getElementById('modalPassword').value
+            password: document.getElementById('modalPassword').value,
+            role: 'artist_manager'
         };
 
         if (editingUserId) {

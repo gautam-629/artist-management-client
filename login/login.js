@@ -16,10 +16,19 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         if (response.ok && result.success) {
             // Store the token and user data
-            localStorage.setItem('token', result.data.token);
-            localStorage.setItem('user', JSON.stringify(result.data.user));
-            // Redirect to dashboard
-            window.location.href = 'dashboard/users.html';
+            localStorage.setItem('token', result?.data?.token);
+            localStorage.setItem('user', JSON.stringify(result?.data?.user));
+
+            let role = result?.data?.user.role
+            if (role === 'artist_manager') {
+                window.location.href = 'dashboard/artist.html';
+            }
+            else if (role === 'super_admin') {
+                window.location.href = 'dashboard/users.html';
+            }
+            else {
+                window.location.href = 'dashboard/music.html';
+            }
 
         } else {
             alert(result.message || 'Login failed');
