@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" >
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" >
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" >
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" >
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" >
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" >
+                        <option value="m">Male</option>
+                        <option value="f">Female</option>
+                        <option value="o">Other</option>
+                    </select>
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" ></textarea>
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" >
+                    <span class="error-message"></span>
+                </div>
+            
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="../index.html">Login here</a></p>
+            
+        </div>
+    </div>
+</body>
+<script src="register.js"></script>
+</html>
