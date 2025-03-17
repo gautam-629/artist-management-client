@@ -23,6 +23,7 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
+    min-height: 95vh;
 }
 
 .sidebar-header {

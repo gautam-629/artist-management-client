@@ -15,11 +15,6 @@ function checkAuth() {
 
     document.getElementById('userRole').textContent = `Role: ${user.role}`;
 
-    // Show users menu item only for super_admin
-    const usersMenuItem = document.getElementById('usersMenuItem');
-    if (user.role === 'super_admin') {
-        usersMenuItem.style.display = 'block';
-    }
 
     return token;
 }
@@ -166,7 +161,6 @@ async function deleteUser(id) {
     }
 }
 
-
 // Pagination
 function updatePagination(type, meta) {
     document.getElementById(`${type}CurrentPage`).textContent = `Page ${meta.page}`;
@@ -184,6 +178,7 @@ async function fetchUsers() {
         updatePagination('users', result.data.meta);
     }
 }
+
 function displayUsers(users) {
     const tbody = document.getElementById('usersTableBody');
     tbody.innerHTML = '';
