@@ -1,6 +1,7 @@
 let currentUserPage = 1;
 let editingUserId = null;
 const limit = 10;
+const backendUrl = `http://localhost:5500`
 
 // Check if user is authenticated and get role
 function checkAuth() {
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const url = editingUserId
-            ? `http://localhost:5500/users/${editingUserId}`
+            ? `${backendUrl}/users/${editingUserId}`
             : 'http://localhost:5500/users';
 
         const method = editingUserId ? 'PUT' : 'POST';
@@ -128,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Edit functions
 async function editUser(id) {
-    const result = await authenticatedFetch(`http://localhost:5500/users/${id}`);
+    const result = await authenticatedFetch(`${backendUrl}/users/${id}`);
 
     if (result && result.success) {
         const user = result.data;
@@ -143,6 +144,19 @@ async function editUser(id) {
 
         editingUserId = id;
         openModal('userModal', 'Edit User');
+    }
+}
+
+// Delete functions
+async function deleteUser(id) {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+
+    const result = await authenticatedFetch(`${backendUrl}/users/${id}`, {
+        method: 'DELETE'
+    });
+
+    if (result && result.success) {
+        fetchUsers();
     }
 }
 
