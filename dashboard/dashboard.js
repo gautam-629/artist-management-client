@@ -1,0 +1,110 @@
+let currentUserPage = 1;
+const limit = 10;
+
+// Check if user is authenticated and get role
+function checkAuth() {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if (!token) {
+        window.location.href = '../index.html';
+        return null;
+    }
+
+    document.getElementById('userRole').textContent = `Role: ${user.role}`;
+
+    // Show users menu item only for super_admin
+    const usersMenuItem = document.getElementById('usersMenuItem');
+    if (user.role === 'super_admin') {
+        usersMenuItem.style.display = 'block';
+    }
+
+    return token;
+}
+
+async function authenticatedFetch(url, options = {}) {
+    const token = checkAuth();
+    if (!token) return null;
+
+    const defaultOptions = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+
+    };
+
+    try {
+        const response = await fetch(url, { ...defaultOptions, ...options });
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Request failed');
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+        alert(error.message);
+        return null;
+    }
+}
+
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    checkAuth();
+    fetchUsers();
+
+    // Users pagination
+    document.getElementById('usersPrevPage').addEventListener('click', () => {
+        if (currentUserPage > 1) {
+            currentUserPage--;
+            fetchUsers();
+        }
+    });
+
+    document.getElementById('usersNextPage').addEventListener('click', () => {
+        currentUserPage++;
+        fetchUsers();
+    });
+
+});
+
+// Pagination
+function updatePagination(type, meta) {
+    document.getElementById(`${type}CurrentPage`).textContent = `Page ${meta.page}`;
+    document.getElementById(`${type}PrevPage`).disabled = meta.page === 1;
+    document.getElementById(`${type}NextPage`).disabled = meta.page === meta.totalPages;
+}
+
+
+async function fetchUsers() {
+    const result = await authenticatedFetch(
+        `http://localhost:5500/users/?page=${currentUserPage}&limit=${limit}`
+    );
+    if (result && result.success) {
+        displayUsers(result.data.users);
+        updatePagination('users', result.data.meta);
+    }
+}
+function displayUsers(users) {
+    const tbody = document.getElementById('usersTableBody');
+    tbody.innerHTML = '';
+
+    users.forEach(user => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${user.first_name} ${user.last_name}</td>
+            <td>${user.email}</td>
+            <td>${user.phone}</td>
+            <td>${user.role}</td>
+            <td class="action-buttons">
+                <button class="edit-btn" onclick="editUser('${user.id}')">Edit</button>
+                <button class="delete-btn" onclick="deleteUser('${user.id}')">Delete</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
