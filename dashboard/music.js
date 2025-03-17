@@ -106,6 +106,7 @@ function displayMusic(musics) {
             <td>${music.title}</td>
             <td>${music.album_name}</td>
             <td>${music.genre}</td>
+            <td>${music.artist_name}</td>
             ${actionButtons}
         `;
         tbody.appendChild(tr);
