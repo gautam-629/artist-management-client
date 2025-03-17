@@ -1,6 +1,5 @@
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -20,7 +19,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             localStorage.setItem('token', result.data.token);
             localStorage.setItem('user', JSON.stringify(result.data.user));
             // Redirect to dashboard
-            window.location.href = '/page/dashboard/index.html';
+            window.location.href = 'dashboard/index.html';
 
         } else {
             alert(result.message || 'Login failed');
