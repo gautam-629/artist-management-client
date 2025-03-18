@@ -1,4 +1,4 @@
-const backendUrl = `http://localhost:5500`
+const backendUrl = `https://artistic-management-server.onrender.com`
 let currentMusicPage = 1;
 const limit = 10;
 

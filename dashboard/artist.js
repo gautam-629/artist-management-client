@@ -1,7 +1,7 @@
 let currentArtistPage = 1;
 const limit = 10;
 let editingArtistId = null;
-const backendUrl = `http://localhost:5500`
+const backendUrl = `https://artistic-management-server.onrender.com`
 
 // Check if user is authenticated and get role
 function checkAuth() {
