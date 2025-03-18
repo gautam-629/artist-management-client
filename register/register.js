@@ -14,7 +14,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     };
 
     try {
-        const response = await fetch('http://localhost:5500/auth/register', {
+        const response = await fetch('https://artistic-management-server.onrender.com/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 let currentUserPage = 1;
 let editingUserId = null;
 const limit = 10;
-const backendUrl = `http://localhost:5500`
+const backendUrl = `https://artistic-management-server.onrender.com`
 
 // Check if user is authenticated and get role
 function checkAuth() {
@@ -175,7 +175,7 @@ function updatePagination(type, meta) {
 
 async function fetchUsers() {
     const result = await authenticatedFetch(
-        `http://localhost:5500/users/?page=${currentUserPage}&limit=${limit}`
+        `${backendUrl}/users/?page=${currentUserPage}&limit=${limit}`
     );
     if (result && result.success) {
         displayUsers(result.data.users);
