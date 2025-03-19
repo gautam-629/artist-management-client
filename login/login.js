@@ -3,6 +3,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    const loginButton = document.getElementById('loginButton');
+
+    // Show loading state
+    loginButton.disabled = true;
+    loginButton.textContent = 'Logging in...';
+
     try {
         const response = await fetch(`https://artistic-management-server.onrender.com/auth/login`, {
             method: 'POST',
@@ -36,5 +42,9 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred during login');
+    }
+    finally {
+        loginButton.disabled = false;
+        loginButton.textContent = 'Login';
     }
 });
