@@ -19,7 +19,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     // Show loading state
     registerButton.disabled = true;
-    registerButton.textContent = 'Logging in...';
+    registerButton.textContent = 'Register....';
 
 
     try {
