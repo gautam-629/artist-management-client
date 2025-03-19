@@ -1,6 +1,7 @@
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault()
 
+
     const formData = {
         first_name: document.getElementById('firstName').value,
         last_name: document.getElementById('lastName').value,
@@ -11,7 +12,15 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         address: document.getElementById('address').value,
         password: document.getElementById('password').value,
         role: 'super_admin'
+
     };
+
+    const registerButton = document.getElementById('registerBtn');
+
+    // Show loading state
+    registerButton.disabled = true;
+    registerButton.textContent = 'Logging in...';
+
 
     try {
         const response = await fetch('https://artistic-management-server.onrender.com/auth/register', {
@@ -32,5 +41,10 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred during registration');
+    }
+    finally {
+
+        registerButton.disabled = false;
+        registerButton.textContent = 'Register';
     }
 })
